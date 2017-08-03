@@ -77,7 +77,7 @@ def load_dataframe(filename):
     csvProcessedFileName = textus_receptus_processed_dir+filename
 
     if isfile(csvProcessedFileName + ".csv"):
-        print "Retrieving data from local csv copy..."
+        print ("Retrieving data from local csv copy...")
         textus_vocabulary = pd.read_csv(csvProcessedFileName + "_dict.csv")
         df = pd.read_csv(csvProcessedFileName + ".csv")
         df['text'] = df['text'].fillna('missing')
@@ -85,7 +85,7 @@ def load_dataframe(filename):
         df['total_isopsephy'] = df['text_isopsephy'].apply(lambda x: sum(x))
         return df
 
-    print "Processing data from original csv file..."
+    print ("Processing data from original csv file...")
 
     df = pd.read_csv(csvOriginalFileName + ".csv", sep="	", index_col=False)
 
@@ -157,7 +157,7 @@ def parse_verse(verse):
     return " ".join(verse_words)
 
 def verse_isopsephy_numbers(verse):
-    return map(isopsephy, verse.split()) if type(verse) is str else []
+    return list(map(isopsephy, verse.split())) if type(verse) is str else []
 
 def match_isopsephy_combinations(num):
     global dataframe
